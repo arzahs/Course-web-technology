@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+    {% for question in questions %}
+        <a href="{% url "one_question" question.id %}">{{ question.title }}</a>
+        <p>{{ question.text }}</p>
+    {% endfor %}
+    {% include "pagination.html" %}
+{% endblock content %}

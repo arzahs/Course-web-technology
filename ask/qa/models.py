@@ -7,9 +7,6 @@ class Question(models.Model):
     text = models.TextField()
     added_at = models.DateTimeField()
     author = models.ForeignKey(User)
-
-
-class QuestionStatus(models.Model):
     RATING_CHOISES = (
         (1, 1),
         (2, 2),
@@ -17,8 +14,8 @@ class QuestionStatus(models.Model):
         (4, 4),
         (5, 5)
     )
-    rating = models.IntegerField(choices=RATING_CHOISES)
-    likes = models.IntegerField()
+    rating = models.IntegerField(choices=RATING_CHOISES, default=1)
+    likes = models.IntegerField(default=0)
 
 
 class Answer(models.Model):
