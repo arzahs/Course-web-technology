@@ -7,3 +7,5 @@ sudo /etc/init.d/nginx restart
 #gunicorn ask.wsgi:application -b 0.0.0.0:8000 &
 sudo /etc/init.d/mysql start
 mysql -uroot -e "create database qa"
+python manage.py loaddata --app=qa demodata.json
+sudo ln -s /usr/bin/python3.4 /usr/bin/python2.7

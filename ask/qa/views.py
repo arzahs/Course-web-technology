@@ -9,7 +9,7 @@ def test(request, *args, **kwargs):
 
 
 def get_all_questions(request, *args, **kwargs):
-    questions = Question.objects.all()
+    questions = Question.objects.order_by('-added_at')
     page = pagination(request, questions)
     return render(request, 'questions.html', {
         'questions': page.object_list,
