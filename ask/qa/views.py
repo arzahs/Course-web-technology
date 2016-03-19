@@ -11,7 +11,7 @@ def test(request, *args, **kwargs):
 def get_all_questions(request, *args, **kwargs):
     questions = Question.objects.all()
     page = pagination(request, questions)
-    return render(request, 'questions.html',{
+    return render(request, 'questions.html', {
         'questions': page.object_list,
         'paginator': page.paginator,
         'page': page

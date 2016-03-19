@@ -17,6 +17,9 @@ class Question(models.Model):
     rating = models.IntegerField(choices=RATING_CHOISES, default=1)
     likes = models.IntegerField(default=0)
 
+    def __str__(self):
+        return u'%s' % (self.title)
+
 
 class Answer(models.Model):
     text = models.TextField()
