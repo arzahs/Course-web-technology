@@ -18,7 +18,7 @@ class Question(models.Model):
     likes = models.IntegerField(default=0)
 
     def __str__(self):
-        return u'%s' % (self.title)
+        return u'%s' % ( self.title )
 
 
 class Answer(models.Model):

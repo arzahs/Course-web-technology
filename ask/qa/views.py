@@ -18,6 +18,15 @@ def get_all_questions(request, *args, **kwargs):
     })
 
 
+def get_popular_questions(request, *args, **kwargs):
+    questions = Question.objects.order_by('-rating')
+    page = pagination(request, questions)
+    return render(request, 'questions.html', {
+        'questions': page.object_list,
+        'paginator': page.paginator,
+        'page': page
+    })
+
 
 def one_question(request, pk):
     question = Question.objects.get(id=pk)

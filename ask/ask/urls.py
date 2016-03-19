@@ -20,7 +20,7 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^$', 'qa.views.get_all_questions'),
     url(r'^login/$', 'qa.views.test'),
-    url(r'^popular/$', 'qa.views.test'),
+    url(r'^popular/$', 'qa.views.get_popular_questions'),
     url(r'^signup/$', 'qa.views.test'),
     url(r'^question/(?P<pk>\d+)/$', 'qa.views.one_question', name="one_question"),
     url(r'^ask/$', 'qa.views.test'),
