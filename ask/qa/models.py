@@ -30,6 +30,9 @@ class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     author = models.ForeignKey(User)
 
+    def get_absolute_url(self):
+        return '/question/%s/' % self.question_id
+
 
 
 #class Author(models.Model):

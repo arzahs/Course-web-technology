@@ -2,9 +2,9 @@ from django.shortcuts import render, Http404
 from django.http import HttpResponse
 from qa.models import Question, Answer
 from qa.helpers import pagination
-from qa.forms import AskForm
+from qa.forms import AskForm, AnswerForm
 from django.http import HttpResponseRedirect
-
+from django.views.decorators.http import require_POST
 
 def test(request, *args, **kwargs):
     return HttpResponse('OK', status=200)
@@ -31,19 +31,23 @@ def get_popular_questions(request, *args, **kwargs):
 
 
 def one_question(request, pk):
-    try:
-        q = Question.objects.get(id=pk)
-    except:
-        raise Http404
-    try:
-        answers = Answer.objects.filter(question=q)
-    except:
-        answers = None
-    return render(request, 'question.html', {
-        'question': q,
-        'answers': answers
-
-    })
+    if request.method == "POST":
+        return add_answer(request)
+    else:
+        form = AnswerForm(initial={'question': pk})
+        try:
+            q = Question.objects.get(id=pk)
+        except:
+            raise Http404
+        try:
+            answers = Answer.objects.filter(question=q)
+        except:
+            answers = None
+        return render(request, 'question.html', {
+            'question': q,
+            'answers': answers,
+            'form': form
+        })
 
 
 def add_question(request):
@@ -59,3 +63,17 @@ def add_question(request):
     return render(request, 'add_question.html', {
         'form': form
     })
+
+
+@require_POST
+def add_answer(request):
+    if request.method == 'POST':
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            answer = form.save()
+            url = answer.get_absolute_url()
+            return HttpResponseRedirect(url)
+        else:
+            form = AnswerForm()
+            url = '/question/%s/' % request.POST['question']
+            return HttpResponseRedirect(url)

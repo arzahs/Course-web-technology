@@ -19,6 +19,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^$', 'qa.views.get_all_questions'),
+    url(r'^answer/$', 'qa.views.add_answer'),
     url(r'^login/$', 'qa.views.test'),
     url(r'^popular/$', 'qa.views.get_popular_questions'),
     url(r'^signup/$', 'qa.views.test'),
