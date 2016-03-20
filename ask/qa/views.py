@@ -2,6 +2,8 @@ from django.shortcuts import render, Http404
 from django.http import HttpResponse
 from qa.models import Question, Answer
 from qa.helpers import pagination
+from qa.forms import AskForm
+from django.http import HttpResponseRedirect
 
 
 def test(request, *args, **kwargs):
@@ -41,4 +43,19 @@ def one_question(request, pk):
         'question': q,
         'answers': answers
 
+    })
+
+
+def add_question(request):
+    if request.method == 'POST':
+        form = AskForm(request.POST)
+        if form.is_valid():
+            question = form.save()
+            #получить url на перенаправление к станице запроса и переправить
+            url = question.get_absolute_url()
+            return HttpResponseRedirect(url)
+    else:
+        form = AskForm()
+    return render(request, 'add_question.html', {
+        'form': form
     })

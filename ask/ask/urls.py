@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^popular/$', 'qa.views.get_popular_questions'),
     url(r'^signup/$', 'qa.views.test'),
     url(r'^question/(?P<pk>\d+)/$', 'qa.views.one_question', name="one_question"),
-    url(r'^ask/$', 'qa.views.test'),
+    url(r'^ask/$', 'qa.views.add_question'),
     url(r'^new/$', 'qa.views.test'),
     url(r'^admin/', include(admin.site.urls)),
 ]

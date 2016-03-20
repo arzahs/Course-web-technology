@@ -20,6 +20,9 @@ class Question(models.Model):
     def __str__(self):
         return u'%s' % ( self.title )
 
+    def get_absolute_url(self):
+        return '/question/%s/' % self.pk
+
 
 class Answer(models.Model):
     text = models.TextField()
