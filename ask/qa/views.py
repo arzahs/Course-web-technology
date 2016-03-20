@@ -29,8 +29,10 @@ def get_popular_questions(request, *args, **kwargs):
 
 
 def one_question(request, pk):
-    question = Question.objects.get(id=pk)
-
+    try:
+        question = Question.objects.get(id=pk)
+    except:
+        question = None
     return render(request, 'question.html', {
         'question': question,
     })
