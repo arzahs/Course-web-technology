@@ -5,16 +5,16 @@ from django.contrib.auth.models import User
 class Question(models.Model):
     title = models.CharField(max_length=255)
     text = models.TextField()
-    added_at = models.DateTimeField()
+    added_at = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User)
-    RATING_CHOISES = (
-        (1, 1),
-        (2, 2),
-        (3, 3),
-        (4, 4),
-        (5, 5)
-    )
-    rating = models.IntegerField(choices=RATING_CHOISES, default=1)
+    #RATING_CHOISES = (
+    #   (1, 1),
+    #    (2, 2),
+    #   (3, 3),
+    #    (4, 4),
+    #   (5, 5)
+    #)
+    rating = models.IntegerField(default=1)
     likes = models.IntegerField(default=0)
 
     def __str__(self):
@@ -23,7 +23,7 @@ class Question(models.Model):
 
 class Answer(models.Model):
     text = models.TextField()
-    added_at = models.DateTimeField()
+    added_at = models.DateTimeField(auto_now_add=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     author = models.ForeignKey(User)
 

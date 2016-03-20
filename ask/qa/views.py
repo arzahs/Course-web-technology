@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, Http404
 from django.http import HttpResponse
-from qa.models import Question
+from qa.models import Question, Answer
 from qa.helpers import pagination
 
 
@@ -30,9 +30,15 @@ def get_popular_questions(request, *args, **kwargs):
 
 def one_question(request, pk):
     try:
-        question = Question.objects.get(id=pk)
+        q = Question.objects.get(id=pk)
     except:
-        question = None
+        raise Http404
+    try:
+        answers = Answer.objects.filter(question=q)
+    except:
+        answers = None
     return render(request, 'question.html', {
-        'question': question,
+        'question': q,
+        'answers': answers
+
     })
