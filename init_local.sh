@@ -8,3 +8,4 @@ sudo ln -s /usr/bin/python3.4 /usr/bin/python2.7
 sudo pip3 install django
 sudo pip3 install mysqlclient
 sudo pip3 install pymysql
+sudo pip3 install gunicorn
