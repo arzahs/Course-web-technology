@@ -31,20 +31,6 @@ def get_popular_questions(request, *args, **kwargs):
 
 
 def one_question(request, pk):
-    if request.method == "POST":
-        form = AnswerForm(request.POST)
-        if form.is_valid():
-            answer = form.save()
-            url = answer.get_absolute_url()
-            return HttpResponseRedirect(url)
-        else:
-            try:
-                form = AnswerForm()
-                url = '/question/%s/' % request.POST['question']
-                return HttpResponseRedirect(url)
-            except:
-                return HttpResponseRedirect('/')
-    else:
         form = AnswerForm(initial={'question': pk})
         try:
             q = Question.objects.get(id=pk)
@@ -90,4 +76,4 @@ def add_answer(request):
                 url = '/question/%s/' % request.POST['question']
                 return HttpResponseRedirect(url)
             except:
-                return HttpResponseRedirect('/')
+                return render("200")
