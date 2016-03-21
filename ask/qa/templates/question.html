@@ -3,7 +3,7 @@
     <h1>{{ question.title }}</h1>
     <p>{{ question.text }}</p>
     Оставить комментарий:
-    <form method="post" action="/answer/">
+    <form method="post" action="{% url "one" question.id %}">
         {{ form.as_ul }}
         {% csrf_token %}
         <input type="submit" value="Ответить">
