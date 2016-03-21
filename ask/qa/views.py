@@ -74,6 +74,9 @@ def add_answer(request):
             url = answer.get_absolute_url()
             return HttpResponseRedirect(url)
         else:
-            form = AnswerForm()
-            url = '/question/%s/' % request.POST['question']
-            return HttpResponseRedirect(url)
+            try:
+                form = AnswerForm()
+                url = '/question/%s/' % request.POST['question']
+                return HttpResponseRedirect(url)
+            except:
+                return HttpResponseRedirect('/')
