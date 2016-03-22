@@ -2,9 +2,10 @@ from django.shortcuts import render, Http404
 from django.http import HttpResponse
 from qa.models import Question, Answer
 from qa.helpers import pagination
-from qa.forms import AskForm, AnswerForm
+from qa.forms import AskForm, AnswerForm, RegisterForm
 from django.http import HttpResponseRedirect
 from django.views.decorators.http import require_POST
+from django.contrib.auth import authenticate, login
 
 def test(request, *args, **kwargs):
     return HttpResponse('OK', status=200)
@@ -77,3 +78,19 @@ def add_answer(request):
                 return HttpResponseRedirect(url)
             except:
                 return render("200")
+
+
+def registration(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            #осуществить вход
+            user = form.save()
+            if user.is_active:
+                login(request, user)
+            return HttpResponseRedirect('/')
+    else:
+        form = RegisterForm()
+    return render(request, 'register.html', {
+        'form': form
+    })

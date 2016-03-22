@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
+    {% if user.is_authenticated %}
+        <p>{{ user.username }}</p>
+    {% endif %}
     {% for question in questions %}
         <a href="{% url "one_question" question.id %}">{{ question.title }}</a>
         <p>{{ question.text }}</p>

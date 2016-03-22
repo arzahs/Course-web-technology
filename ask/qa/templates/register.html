@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+    <form method="post" action="/signup/">
+    {{ form.as_ul }}
+        {% csrf_token %}
+        <input type="submit" value="Зарегестрироваться">
+    </form>
+{% endblock %}
