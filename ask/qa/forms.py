@@ -6,10 +6,10 @@ from django.contrib.auth import authenticate, login
 class AskForm(forms.Form):
     title = forms.CharField()
     text = forms.CharField(widget=forms.Textarea)
-
+    _user = User()
     def save(self):
         question = Question(**self.cleaned_data)
-        question.author_id = 1
+        question.author = self._user
         question.save()
         return question
 
@@ -17,10 +17,15 @@ class AskForm(forms.Form):
 class AnswerForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea)
     question = forms.IntegerField(widget=forms.HiddenInput)
+    _user = User()
+
+    # def __init__(self, user, **kwargs):
+    #     self._user = user
+    #     super(AnswerForm, self).__init__(**kwargs)
 
     def save(self):
         answer = Answer()
-        answer.author_id = 1
+        answer.author = self._user
         answer.text = self.cleaned_data['text']
         answer.question_id = self.cleaned_data['question']
         answer.save()

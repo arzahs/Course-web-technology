@@ -7,13 +7,6 @@ class Question(models.Model):
     text = models.TextField()
     added_at = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User)
-    #RATING_CHOISES = (
-    #   (1, 1),
-    #    (2, 2),
-    #   (3, 3),
-    #    (4, 4),
-    #   (5, 5)
-    #)
     rating = models.IntegerField(default=1)
     likes = models.IntegerField(default=0)
 

@@ -4,6 +4,7 @@ from qa.models import Question, Answer
 from qa.helpers import pagination
 from qa.forms import AskForm, AnswerForm, RegisterForm, LoginForm
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.contrib.auth import authenticate, login, logout
 
@@ -48,9 +49,11 @@ def one_question(request, pk):
         })
 
 
+@login_required
 def add_question(request):
     if request.method == 'POST':
         form = AskForm(request.POST)
+        form._user = request.user
         if form.is_valid():
             question = form.save()
             #получить url на перенаправление к станице запроса и переправить
@@ -64,9 +67,11 @@ def add_question(request):
 
 
 @require_POST
+@login_required
 def add_answer(request):
     if request.method == 'POST':
         form = AnswerForm(request.POST)
+        form._user = request.user
         if form.is_valid():
             answer = form.save()
             url = answer.get_absolute_url()
