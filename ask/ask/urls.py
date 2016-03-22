@@ -20,11 +20,12 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^$', 'qa.views.get_all_questions'),
     url(r'^answer/$', 'qa.views.add_answer'),
-    url(r'^login/$', 'qa.views.test'),
+    url(r'^login/$', 'qa.views.login_user'),
     url(r'^popular/$', 'qa.views.get_popular_questions'),
     url(r'^signup/$', 'qa.views.registration'),
     url(r'^question/(?P<pk>\d+)/$', 'qa.views.one_question', name="one_question"),
     url(r'^ask/$', 'qa.views.add_question'),
     url(r'^new/$', 'qa.views.test'),
+    url(r'^logout/$', 'qa.views.logout_user'),
     url(r'^admin/', include(admin.site.urls)),
 ]
